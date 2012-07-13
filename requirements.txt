@@ -1,0 +1,8 @@
+# this file is for pip, run it with 
+#
+# pip install -r requirements.txt
+#
+
+Django >= 1.4
+South >= 0.7.2
+
