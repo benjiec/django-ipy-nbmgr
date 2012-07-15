@@ -4,8 +4,12 @@ import os
 import uuid
 from djnbmgr.models import *
 
+from IPython.utils.traitlets import Unicode
+from IPython.nbformat import current
+
 class NotebookManager:
-  notebook_dir = 'database'
+  # XXX this should be configurable
+  notebook_dir = os.getcwdu()
 
   def __init__(self):
     pass
@@ -20,7 +24,7 @@ class NotebookManager:
   def notebook_exists(self, notebook_id):
     """Does a notebook exist?"""
     n = Notebook.objects.filter(id=notebook_id)
-    return n == 1
+    return len(n) == 1
 
   def get_notebook(self, notebook_id, format=u'json'):
     """Get the representation of a notebook in format by notebook_id."""
@@ -35,7 +39,14 @@ class NotebookManager:
       raise Exception('Only supporting JSON in Django backed notebook')
     n = Notebook()
     n.id = str(uuid.uuid4())
-    n.name = name
+    if name != None:
+      n.name = name
+      nb = current.reads(data.decode('utf-8'), format)
+      nb.metadata.name = name
+      data = current.writes(nb, format)
+    else:
+      nb = current.reads(data.decode('utf-8'), format)
+      n.name = nb.metadata.name
     n.content = data
     n.save(force_insert=True)
     return n.id
@@ -47,6 +58,12 @@ class NotebookManager:
     n = Notebook.objects.get(id=notebook_id)
     if name != None:
       n.name = name
+      nb = current.reads(data.decode('utf-8'), format)
+      nb.metadata.name = name
+      data = current.writes(nb, format)
+    else:
+      nb = current.reads(data.decode('utf-8'), format)
+      n.name = nb.metadata.name
     n.content = data
     n.save()
     return n.id
@@ -61,6 +78,11 @@ class NotebookManager:
     """Create a new notebook and return its notebook_id."""
     n = Notebook()
     n.id = str(uuid.uuid4())
+    n.name = 'New Notebook'
+    metadata = current.new_metadata(name=n.name)
+    nb = current.new_notebook(metadata=metadata)
+    data = current.writes(nb, u'json')
+    n.content = data
     n.save(force_insert=True)
     return n.id
 
@@ -70,6 +92,10 @@ class NotebookManager:
     n.id = str(uuid.uuid4())
     if n.name != None:
       n.name = n.name+' - Copy'
+      nb = current.reads(n.content, format)
+      nb.metadata.name = name
+      data = current.writes(nb, format)
+      n.content = data
     n.save(force_insert=True)
     return n.id
 
