@@ -13,13 +13,21 @@ class NotebookManager:
   def __init__(self):
     pass
 
+  @staticmethod
+  def _name(n):
+    if n.archive:
+      ts = n.updated_on.strftime("%Y-%m-%d %H:%M:%S")
+      return n.for_notebook.name+" (revision "+str(ts)+", readonly)"
+    else:
+      return n.name
+
   def list_notebooks(self):
     """List all notebooks in the notebook dir.
     This returns a list of dicts of the form::
         dict(notebook_id=notebook,name=name)
     """
     #return [dict(notebook_id=x.id,name=x.name) for x in Notebook.objects.filter(archive=False,deleted=False)]
-    return [dict(notebook_id=x.id,name=x.name) for x in Notebook.objects.all()]
+    return [dict(notebook_id=x.id,name=NotebookManager._name(x)) for x in Notebook.objects.all()]
 
   def notebook_exists(self, notebook_id):
     """Does a notebook exist?"""
@@ -31,7 +39,16 @@ class NotebookManager:
     if format != 'json':
       raise Exception('Only supporting JSON in Django backed notebook')
     n = Notebook.objects.get(id=notebook_id)
-    return n.updated_on, n.name, n.content
+    # we want more informative names for archived notebooks
+    nb = current.reads(n.content, format)
+    nb.metadata.name = NotebookManager._name(n)
+    kwargs = {}
+    if format == 'json':
+      # don't split lines for sending over the wire, because it should match
+      # the Python in-memory format.
+      kwargs['split_lines'] = False
+    n.content = current.writes(nb, format, **kwargs)
+    return n.updated_on, NotebookManager._name(n), n.content
 
   def _archive(self, notebook, format=u'json'):
     if notebook.archive == True:
@@ -40,10 +57,7 @@ class NotebookManager:
     archive.id = str(uuid.uuid4())
     archive.archive = True
     archive.for_notebook = notebook
-    archive.name = notebook.name+" (readonly revision - "+str(notebook.updated_on)+")"
-    #nb = current.reads(notebook.content, format)
-    #nb.metadata.name = archive.name
-    #archive.content = current.writes(nb, format)
+    archive.name = notebook.name
     archive.content = notebook.content
     archive.save()
 
@@ -113,12 +127,6 @@ class NotebookManager:
     n.for_notebook = None
     if n.name != None:
       n.name = n.name+' - Copy'
-      print 'was '+str(n.content)
-      nb = current.reads(n.content, u'json')
-      nb.metadata.name = n.name
-      data = current.writes(nb, u'json')
-      print 'now '+str(data)
-      n.content = data
     n.save(force_insert=True)
     self._archive(n)
     return n.id
