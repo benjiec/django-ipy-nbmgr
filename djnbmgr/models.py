@@ -4,8 +4,6 @@ from django.db import models
 class Notebook(models.Model):
   class Meta:
     verbose_name = "Notebook"
-    app_label = "iPython Notebook"
-    db_table = "djnbmgr_notebook"
 
   id = models.CharField(max_length=128,primary_key=True)
   name = models.CharField(max_length=128)
