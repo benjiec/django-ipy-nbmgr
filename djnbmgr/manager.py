@@ -2,13 +2,12 @@
 
 import os
 import uuid
-from djnbmgr.models import *
+from djnbmgr.models import Notebook, NotebookHistory
 
 from IPython.utils.traitlets import Unicode
 from IPython.nbformat import current
 
 class NotebookManager:
-  # XXX this should be configurable
   notebook_dir = os.getcwdu()
 
   def __init__(self):
@@ -56,6 +55,12 @@ class NotebookManager:
     if format != 'json':
       raise Exception('Only supporting JSON in Django backed notebook')
     n = Notebook.objects.get(id=notebook_id)
+    # archive old copy 
+    archive = NotebookHistory()
+    archive.for_notebook = n
+    archive.content = n.content
+    archive.save()
+    # update copy
     if name != None:
       n.name = name
       nb = current.reads(data.decode('utf-8'), format)

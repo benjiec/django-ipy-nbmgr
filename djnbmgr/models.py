@@ -16,3 +16,20 @@ class Notebook(models.Model):
     return self.name
 
 
+class NotebookHistory(models.Model):
+  class Meta:
+    verbose_name = "Notebook History"
+    verbose_name_plural = "Notebook Histories"
+
+  for_notebook = models.ForeignKey(Notebook)
+  updated_on = models.DateTimeField(auto_now=True)
+  content = models.TextField(null=True,blank=True)
+
+  def __unicode__(self):
+    return self.for_notebook.name+"/"+str(self.id)
+
+  def save(self, *args, **kwargs):
+    if self.id != None:
+      raise Exception("Cannot update existing version") 
+    super(NotebookHistory,self).save(*args, **kwargs)
+
