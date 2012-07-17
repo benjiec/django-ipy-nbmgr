@@ -41,9 +41,10 @@ class NotebookManager:
     archive.archive = True
     archive.for_notebook = notebook
     archive.name = notebook.name+" (readonly revision - "+str(notebook.updated_on)+")"
-    nb = current.reads(notebook.content, format)
-    nb.metadata.name = archive.name
-    archive.content = current.writes(nb, format)
+    #nb = current.reads(notebook.content, format)
+    #nb.metadata.name = archive.name
+    #archive.content = current.writes(nb, format)
+    archive.content = notebook.content
     archive.save()
 
   def save_new_notebook(self, data, name=None, format=u'json'):
@@ -112,9 +113,11 @@ class NotebookManager:
     n.for_notebook = None
     if n.name != None:
       n.name = n.name+' - Copy'
-      nb = current.reads(n.content, format)
-      nb.metadata.name = name
-      data = current.writes(nb, format)
+      print 'was '+str(n.content)
+      nb = current.reads(n.content, u'json')
+      nb.metadata.name = n.name
+      data = current.writes(nb, u'json')
+      print 'now '+str(data)
       n.content = data
     n.save(force_insert=True)
     self._archive(n)
