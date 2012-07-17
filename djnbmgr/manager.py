@@ -26,8 +26,8 @@ class NotebookManager:
     This returns a list of dicts of the form::
         dict(notebook_id=notebook,name=name)
     """
-    #return [dict(notebook_id=x.id,name=x.name) for x in Notebook.objects.filter(archive=False,deleted=False)]
-    return [dict(notebook_id=x.id,name=NotebookManager._name(x)) for x in Notebook.objects.all()]
+    return [dict(notebook_id=x.id,name=NotebookManager._name(x))
+            for x in Notebook.objects.filter(archive=False,deleted=False)]
 
   def notebook_exists(self, notebook_id):
     """Does a notebook exist?"""
