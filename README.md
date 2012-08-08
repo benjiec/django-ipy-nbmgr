@@ -6,10 +6,32 @@ and archive old revisions.
 
 To use, following these steps.
 
-First apply the patch ipython.patch; this patch allows iPython to support
-alternative notebook managers.
+First, you need to use a development branch of iPython this pull request:
 
-Second, use python setup.py install to install this python module.
+https://github.com/ipython/ipython/pull/2045
+
+You can install this like
+
+```
+pip install -e git://github.com/ellisonbg/ipython.git@azurenb#egg=IPython
+```
+
+or just checkout 
+
+```
+git clone git://github.com/ellisonbg/ipython.git
+cd ipython
+git checkout azurenb
+python setup.py install
+```
+
+Second, install djnbmgr (this module)
+
+```
+git clone git://github.com/benjiec/django-ipy-nbmgr
+cd django-ipy-nbmgr
+python setup.py install
+```
 
 Then, in a directory where you want to run iPython notebook server, create a
 loader.py file:
@@ -24,19 +46,17 @@ settings.configure(
                            }},
   TIME_ZONE = 'America/New_York',
 )
-import djnbmgr.manager
-
-def get_notebook_manager():
-  return djnbmgr.manager.NotebookManager()
+from djnbmgr.manager import DjangoNotebookManager
 ```
 
 Then you can start iPython in that directory like this
 
 ```
-PYTHONPATH=. ipython notebook --nbmgr loader --ip 0.0.0.0 --pylab inline
+PYTHONPATH=. ipython notebook --nbmgr loader --ip 0.0.0.0 --pylab inline --NotebookApp.notebook_manager_class=loader.DjangoNotebookManager
 ```
 
-You can then use iPython notebook server as usual, but your notebooks are stored in the database.
+You can then use iPython notebook server as usual, but your notebooks are
+stored in the database.
 
 There is also a Django admin view that comes with the package. To use, put
 "djnbmgr" in your INSTALLED_APPS list. The Django admin view lets you sort by
@@ -51,5 +71,4 @@ This is all very preliminary; we are thinking about implementing a more
 involved UI that supports users, tagging, etc, using Django. iPython notebook
 has a very clean interface in terms of opening and saving notebooks, that made
 this possible.
-
 

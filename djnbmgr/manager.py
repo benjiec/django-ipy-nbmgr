@@ -3,15 +3,18 @@
 import os
 import uuid
 from djnbmgr.models import Notebook
+from django.conf import settings
 
 from IPython.utils.traitlets import Unicode
 from IPython.nbformat import current
+from IPython.frontend.html.notebook.basenbmanager import BaseNotebookManager
 
-class NotebookManager:
+class DjangoNotebookManager(BaseNotebookManager):
   notebook_dir = os.getcwdu()
 
-  def __init__(self):
-    pass
+  def log_info(self):
+    db_settings = settings.DATABASES
+    self.log.info('Serving notebooks from db, using '+str(db_settings['default']['ENGINE']))
 
   @staticmethod
   def _name(n):
@@ -26,7 +29,7 @@ class NotebookManager:
     This returns a list of dicts of the form::
         dict(notebook_id=notebook,name=name)
     """
-    return [dict(notebook_id=x.id,name=NotebookManager._name(x))
+    return [dict(notebook_id=x.id,name=DjangoNotebookManager._name(x))
             for x in Notebook.objects.filter(archive=False,deleted=False)]
 
   def notebook_exists(self, notebook_id):
@@ -41,14 +44,14 @@ class NotebookManager:
     n = Notebook.objects.get(id=notebook_id)
     # we want more informative names for archived notebooks
     nb = current.reads(n.content, format)
-    nb.metadata.name = NotebookManager._name(n)
+    nb.metadata.name = DjangoNotebookManager._name(n)
     kwargs = {}
     if format == 'json':
       # don't split lines for sending over the wire, because it should match
       # the Python in-memory format.
       kwargs['split_lines'] = False
     n.content = current.writes(nb, format, **kwargs)
-    return n.updated_on, NotebookManager._name(n), n.content
+    return n.updated_on, DjangoNotebookManager._name(n), n.content
 
   def _archive(self, notebook, format=u'json'):
     if notebook.archive == True:
