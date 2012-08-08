@@ -6,20 +6,18 @@ and archive old revisions.
 
 To use, following these steps.
 
-First, you need to use a development branch of iPython this pull request:
-
-https://github.com/ipython/ipython/pull/2045
+First, you need to use a development branch of iPython:
 
 You can install this like
 
 ```
-pip install -e git://github.com/ellisonbg/ipython.git@azurenb#egg=IPython
+pip install -e git://github.com/benjiec/ipython.git@azurenb#egg=IPython
 ```
 
 or just checkout 
 
 ```
-git clone git://github.com/ellisonbg/ipython.git
+git clone git://github.com/benjiec/ipython.git
 cd ipython
 git checkout azurenb
 python setup.py install
