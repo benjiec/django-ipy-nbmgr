@@ -1,35 +1,44 @@
-<h3>Notebooks</h3>
-<ul>
-  {{#each notebooks.objects}}
-  <li class="notebook-link" data-notebook-id="{{this.id}}">
-    <span class="name">{{this.name}}</span><br/>
-    <span class="date">Updated: {{this.updated_on}}</span>
-    <span class="date">Created: {{this.created_on}}</span>
-  </li>
-  {{/each}}
-</ul>
+<div class="djnbmgr">
+<div class="djnbmgr-left djnbmgr-main">
+  <h3>Notebooks</h3>
+  <table class="djnbmgr-notebook-list">
+    <tbody>
+    {{#each notebooks.objects}}
+      <tr>
+        <td class="djnbmgr-notebook-name djnbmgr-notebook-link" data-notebook-id="{{this.id}}">{{this.name}}</td>
+        <td class="djnbmgr-notebook-date">{{this.updated_on}}</td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</div>
 
+<div class="djnbmgr-left djnbmgr-menu">
+  <h3>Recently Archived</h3>
+  <ul class="djnbmgr-notebook-list">
+    {{#each archives.objects}}
+    <li>
+      <span class="djnbmgr-notebook-name djnbmgr-notebook-link" data-notebook-id="{{this.id}}">{{this.name}}</span>
+      <span class="djnbmgr-notebook-info">
+        Updated: {{this.updated_on}}
+      </span>
+    </li>
+    {{/each}}
+  </ul>
 
-<h3>Archives</h3>
-<ul>
-  {{#each archives.objects}}
-  <li class="notebook-link" data-notebook-id="{{this.id}}">
-    <span class="name">{{this.name}}</span><br/>
-    <span class="date">Updated: {{this.updated_on}}</span>
-    <span class="date">Created: {{this.created_on}}</span>
-  </li>
-  {{/each}}
-</ul>
+  <h3>Recently Trashed</h3>
+  <ul class="djnbmgr-notebook-list">
+    {{#each trash.objects}}
+    <li>
+      <span class="djnbmgr-notebook-name djnbmgr-notebook-link" data-notebook-id="{{this.id}}">{{this.name}}</span>
+      <span class="djnbmgr-notebook-info">
+        Updated: {{this.updated_on}}
+      </span>
+    </li>
+    {{/each}}
+  </ul>
+</div>
 
-
-<h3>Trash</h3>
-<ul>
-  {{#each trash.objects}}
-  <li class="notebook-link" data-notebook-id="{{this.id}}">
-    <span class="name">{{this.name}}</span><br/>
-    <span class="date">Updated: {{this.updated_on}}</span>
-    <span class="date">Created: {{this.created_on}}</span>
-  </li>
-  {{/each}}
-</ul>
+<div class="djnbmgr-clear"></div>
+</div>
 

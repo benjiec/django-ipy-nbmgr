@@ -1,0 +1,36 @@
+.djnbmgr { font-family:helvetica; }
+.djnbmgr-left { float:left; }
+.djnbmgr-clear { clear:both; }
+
+.djnbmgr-main { padding-right:10px; width:1000px; }
+
+.djnbmgr-menu {
+  border:1px solid #ddd;
+  padding:4px 10px 4px 10px;
+  -webkit-border-radius:4px;
+  -moz-border-radius:4px;
+  border-radius:4px;
+  width:180px;
+  font-size:0.8em;
+}
+
+table.djnbmgr-notebook-list {
+  width:100%;
+  border-spacing:0;
+}
+table.djnbmgr-notebook-list td { 
+  padding:10px 4px;
+  border-top:1px solid #ddd;
+}
+table.djnbmgr-notebook-list td.djnbmgr-notebook-name { }
+table.djnbmgr-notebook-list td.djnbmgr-notebook-date { text-align:right; }
+
+ul.djnbmgr-notebook-list {
+  padding-left:0px;
+  list-style:none;
+}
+ul.djnbmgr-notebook-list li { margin:10px; }
+
+span.djnbmgr-notebook-name { display:block; }
+.djnbmgr-notebook-link { cursor:pointer; text-decoration:underline; }
+

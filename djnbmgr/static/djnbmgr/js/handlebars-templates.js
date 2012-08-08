@@ -7,70 +7,58 @@ templates['djnbmgr_browse'] = template(function (Handlebars,depth0,helpers,parti
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n  <li class=\"notebook-link\" data-notebook-id=\"";
+  buffer += "\n      <tr>\n        <td class=\"djnbmgr-notebook-name djnbmgr-notebook-link\" data-notebook-id=\"";
   stack1 = depth0.id;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.id", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "\">\n    <span class=\"name\">";
+  buffer += escapeExpression(stack1) + "\">";
   stack1 = depth0.name;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.name", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "</span><br/>\n    <span class=\"date\">Updated: ";
+  buffer += escapeExpression(stack1) + "</td>\n        <td class=\"djnbmgr-notebook-date\">";
   stack1 = depth0.updated_on;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.updated_on", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "</span>\n    <span class=\"date\">Created: ";
-  stack1 = depth0.created_on;
-  if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
-  else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.created_on", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "</span>\n  </li>\n  ";
+  buffer += escapeExpression(stack1) + "</td>\n      </tr>\n    ";
   return buffer;}
 
 function program3(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n  <li class=\"notebook-link\" data-notebook-id=\"";
+  buffer += "\n    <li>\n      <span class=\"djnbmgr-notebook-name djnbmgr-notebook-link\" data-notebook-id=\"";
   stack1 = depth0.id;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.id", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "\">\n    <span class=\"name\">";
+  buffer += escapeExpression(stack1) + "\">";
   stack1 = depth0.name;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.name", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "</span><br/>\n    <span class=\"date\">Updated: ";
+  buffer += escapeExpression(stack1) + "</span>\n      <span class=\"djnbmgr-notebook-info\">\n        Updated: ";
   stack1 = depth0.updated_on;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.updated_on", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "</span>\n    <span class=\"date\">Created: ";
-  stack1 = depth0.created_on;
-  if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
-  else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.created_on", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "</span>\n  </li>\n  ";
+  buffer += escapeExpression(stack1) + "\n      </span>\n    </li>\n    ";
   return buffer;}
 
 function program5(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n  <li class=\"notebook-link\" data-notebook-id=\"";
+  buffer += "\n    <li>\n      <span class=\"djnbmgr-notebook-name djnbmgr-notebook-link\" data-notebook-id=\"";
   stack1 = depth0.id;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.id", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "\">\n    <span class=\"name\">";
+  buffer += escapeExpression(stack1) + "\">";
   stack1 = depth0.name;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.name", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "</span><br/>\n    <span class=\"date\">Updated: ";
+  buffer += escapeExpression(stack1) + "</span>\n      <span class=\"djnbmgr-notebook-info\">\n        Updated: ";
   stack1 = depth0.updated_on;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.updated_on", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "</span>\n    <span class=\"date\">Created: ";
-  stack1 = depth0.created_on;
-  if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
-  else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.created_on", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "</span>\n  </li>\n  ";
+  buffer += escapeExpression(stack1) + "\n      </span>\n    </li>\n    ";
   return buffer;}
 
-  buffer += "<h3>Notebooks</h3>\n<ul>\n  ";
+  buffer += "<div class=\"djnbmgr\">\n<div class=\"djnbmgr-left djnbmgr-main\">\n  <h3>Notebooks</h3>\n  <table class=\"djnbmgr-notebook-list\">\n    <tbody>\n    ";
   foundHelper = helpers.notebooks;
   stack1 = foundHelper || depth0.notebooks;
   stack1 = (stack1 === null || stack1 === undefined || stack1 === false ? stack1 : stack1.objects);
@@ -81,7 +69,7 @@ function program5(depth0,data) {
   tmp1.inverse = self.noop;
   stack1 = stack2.call(depth0, stack1, tmp1);
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n</ul>\n\n\n<h3>Archives</h3>\n<ul>\n  ";
+  buffer += "\n    </tbody>\n  </table>\n</div>\n\n<div class=\"djnbmgr-left djnbmgr-menu\">\n  <h3>Recently Archived</h3>\n  <ul class=\"djnbmgr-notebook-list\">\n    ";
   foundHelper = helpers.archives;
   stack1 = foundHelper || depth0.archives;
   stack1 = (stack1 === null || stack1 === undefined || stack1 === false ? stack1 : stack1.objects);
@@ -92,7 +80,7 @@ function program5(depth0,data) {
   tmp1.inverse = self.noop;
   stack1 = stack2.call(depth0, stack1, tmp1);
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n</ul>\n\n\n<h3>Trash</h3>\n<ul>\n  ";
+  buffer += "\n  </ul>\n\n  <h3>Recently Trashed</h3>\n  <ul class=\"djnbmgr-notebook-list\">\n    ";
   foundHelper = helpers.trash;
   stack1 = foundHelper || depth0.trash;
   stack1 = (stack1 === null || stack1 === undefined || stack1 === false ? stack1 : stack1.objects);
@@ -103,6 +91,6 @@ function program5(depth0,data) {
   tmp1.inverse = self.noop;
   stack1 = stack2.call(depth0, stack1, tmp1);
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n</ul>\n\n";
+  buffer += "\n  </ul>\n</div>\n\n<div class=\"djnbmgr-clear\"></div>\n</div>\n\n";
   return buffer;});
 })();

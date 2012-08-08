@@ -12,7 +12,7 @@ window.DjangoNotebookManager = (el, api_url_base, ipython_server_url) ->
   await
     $.getJSON api_url_base+'notebook/?order_by=-updated_on', defer notebooks
     $.getJSON api_url_base+'archive/?limit=10&order_by=-updated_on', defer archives
-    $.getJSON api_url_base+'trashed/?order_by=-updated_on', defer trash
+    $.getJSON api_url_base+'trashed/?limit=10&order_by=-updated_on', defer trash
 
   container = Handlebars.templates.djnbmgr_browse({
     notebooks: notebooks,

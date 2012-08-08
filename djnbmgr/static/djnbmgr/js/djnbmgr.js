@@ -75,7 +75,7 @@
         })(),
         lineno: 14
       }));
-      $.getJSON(api_url_base + 'trashed/?order_by=-updated_on', __iced_deferrals.defer({
+      $.getJSON(api_url_base + 'trashed/?limit=10&order_by=-updated_on', __iced_deferrals.defer({
         assign_fn: (function() {
           return function() {
             return trash = arguments[0];
