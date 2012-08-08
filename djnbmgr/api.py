@@ -2,6 +2,8 @@ from tastypie.resources import ModelResource
 from tastypie import fields
 from djnbmgr.models import Notebook
 
+TASTYPIE_DATETIME_FORMATTING = 'rfc-2822'
+
 class NotebookResource(ModelResource):
   class Meta:
     queryset = Notebook.objects.filter(deleted=False,archive=False)

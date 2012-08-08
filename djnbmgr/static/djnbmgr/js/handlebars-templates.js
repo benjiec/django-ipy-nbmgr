@@ -33,11 +33,11 @@ function program3(depth0,data) {
   stack1 = depth0.name;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.name", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "</span>\n      <span class=\"djnbmgr-notebook-info\">\n        Updated: ";
+  buffer += escapeExpression(stack1) + "</span>\n      <span class=\"djnbmgr-notebook-info\">";
   stack1 = depth0.updated_on;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.updated_on", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "\n      </span>\n    </li>\n    ";
+  buffer += escapeExpression(stack1) + "</span>\n    </li>\n    ";
   return buffer;}
 
 function program5(depth0,data) {
@@ -51,14 +51,14 @@ function program5(depth0,data) {
   stack1 = depth0.name;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.name", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "</span>\n      <span class=\"djnbmgr-notebook-info\">\n        Updated: ";
+  buffer += escapeExpression(stack1) + "</span>\n      <span class=\"djnbmgr-notebook-info\">";
   stack1 = depth0.updated_on;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.updated_on", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "\n      </span>\n    </li>\n    ";
+  buffer += escapeExpression(stack1) + "</span>\n    </li>\n    ";
   return buffer;}
 
-  buffer += "<div class=\"djnbmgr\">\n<div class=\"djnbmgr-left djnbmgr-main\">\n  <h3>Notebooks</h3>\n  <table class=\"djnbmgr-notebook-list\">\n    <tbody>\n    ";
+  buffer += "<div class=\"djnbmgr\">\n<div class=\"djnbmgr-left djnbmgr-main\">\n  <h3>Notebooks</h3>\n  <p>\n    <span class=\"djnbmgr-notebook-new\">New Notebook</span>\n  </p>\n  <table class=\"djnbmgr-notebook-list\">\n    <tbody>\n    ";
   foundHelper = helpers.notebooks;
   stack1 = foundHelper || depth0.notebooks;
   stack1 = (stack1 === null || stack1 === undefined || stack1 === false ? stack1 : stack1.objects);

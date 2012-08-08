@@ -48,10 +48,13 @@
     if (api_url_base[api_url_base.length - 1] !== '/') {
       api_url_base = api_url_base + '/';
     }
-    $('.notebook-link').live('click', function() {
+    $('.djnbmgr-notebook-link').live('click', function() {
       var nbid;
       nbid = $(this).data('notebook-id');
       return window.open(ipython_server_url + '/' + nbid);
+    });
+    $('.djnbmgr-notebook-new').live('click', function() {
+      return window.open(ipython_server_url + '/new');
     });
     (function(__iced_k) {
       __iced_deferrals = new iced.Deferrals(__iced_k, {
@@ -65,7 +68,7 @@
             return notebooks = arguments[0];
           };
         })(),
-        lineno: 13
+        lineno: 16
       }));
       $.getJSON(api_url_base + 'archive/?limit=10&order_by=-updated_on', __iced_deferrals.defer({
         assign_fn: (function() {
@@ -73,7 +76,7 @@
             return archives = arguments[0];
           };
         })(),
-        lineno: 14
+        lineno: 17
       }));
       $.getJSON(api_url_base + 'trashed/?limit=10&order_by=-updated_on', __iced_deferrals.defer({
         assign_fn: (function() {
@@ -81,7 +84,7 @@
             return trash = arguments[0];
           };
         })(),
-        lineno: 16
+        lineno: 19
       }));
       __iced_deferrals._fulfill();
     })(function() {

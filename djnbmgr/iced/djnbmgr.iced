@@ -5,9 +5,12 @@ window.DjangoNotebookManager = (el, api_url_base, ipython_server_url) ->
   if api_url_base[api_url_base.length-1] != '/'
     api_url_base = api_url_base+'/'
 
-  $('.notebook-link').live 'click', ->
+  $('.djnbmgr-notebook-link').live 'click', ->
     nbid = $(this).data('notebook-id')
     window.open(ipython_server_url+'/'+nbid)
+
+  $('.djnbmgr-notebook-new').live 'click', ->
+    window.open(ipython_server_url+'/new')
 
   await
     $.getJSON api_url_base+'notebook/?order_by=-updated_on', defer notebooks

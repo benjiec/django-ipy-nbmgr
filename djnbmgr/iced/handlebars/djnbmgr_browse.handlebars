@@ -1,6 +1,9 @@
 <div class="djnbmgr">
 <div class="djnbmgr-left djnbmgr-main">
   <h3>Notebooks</h3>
+  <p>
+    <span class="djnbmgr-notebook-new">New Notebook</span>
+  </p>
   <table class="djnbmgr-notebook-list">
     <tbody>
     {{#each notebooks.objects}}
@@ -19,9 +22,7 @@
     {{#each archives.objects}}
     <li>
       <span class="djnbmgr-notebook-name djnbmgr-notebook-link" data-notebook-id="{{this.id}}">{{this.name}}</span>
-      <span class="djnbmgr-notebook-info">
-        Updated: {{this.updated_on}}
-      </span>
+      <span class="djnbmgr-notebook-info">{{this.updated_on}}</span>
     </li>
     {{/each}}
   </ul>
@@ -31,9 +32,7 @@
     {{#each trash.objects}}
     <li>
       <span class="djnbmgr-notebook-name djnbmgr-notebook-link" data-notebook-id="{{this.id}}">{{this.name}}</span>
-      <span class="djnbmgr-notebook-info">
-        Updated: {{this.updated_on}}
-      </span>
+      <span class="djnbmgr-notebook-info">{{this.updated_on}}</span>
     </li>
     {{/each}}
   </ul>
