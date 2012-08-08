@@ -18,7 +18,7 @@ setup(
         'djnbmgr',
     ],
     package_data={
-        'djnbmgr': ['static/djnbmgr/*'],
+        'djnbmgr': ['static/djnbmgr/js/*'],
     },
     zip_safe=False,
     requires=[

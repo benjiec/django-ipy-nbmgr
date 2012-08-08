@@ -1,0 +1,13 @@
+
+# Install node, iced, handlebars
+#
+# apt-get install nodejs npm
+# npm install -g iced-coffee-script
+# npm install -g handlebars
+#
+# Run iced to compile iced coffee scripts to javascript files.  Run handlebars to
+# compile handlebar templates.
+
+iced --runtime window -o static/djnbmgr/js -c iced
+handlebars iced/handlebars -f static/djnbmgr/js/handlebars-templates.js
+

@@ -6,7 +6,7 @@ and archive old revisions.
 
 To use, following these steps.
 
-First, you need to use a development branch of iPython:
+1) You need to use a development branch of iPython:
 
 You can install this like
 
@@ -23,7 +23,7 @@ git checkout azurenb
 python setup.py install
 ```
 
-Second, install djnbmgr (this module)
+2) Install djnbmgr (this module)
 
 ```
 git clone git://github.com/benjiec/django-ipy-nbmgr
@@ -31,7 +31,24 @@ cd django-ipy-nbmgr
 python setup.py install
 ```
 
-Then, in a directory where you want to run iPython notebook server, create a
+3) Configure your Django app to include "djnbmgr" in INSTALLED_APPS, and add
+djnbmgr.urls to your URLs. E.g.
+
+```
+urlpatterns = patterns('',
+    ...
+    url(r'^djnbmgr/', include('djnbmgr.urls')),
+    ...
+)
+```
+
+Remember to run
+
+```
+python manage.py syncdb djnbmgr
+```
+
+4) In a directory where you want to run iPython notebook server, create a
 loader.py file:
 
 ```python
@@ -47,26 +64,46 @@ settings.configure(
 from djnbmgr.manager import DjangoNotebookManager
 ```
 
-Then you can start iPython in that directory like this
+5) You can start iPython in that directory like this
 
 ```
 PYTHONPATH=. ipython notebook --nbmgr loader --ip 0.0.0.0 --pylab inline --NotebookApp.notebook_manager_class=loader.DjangoNotebookManager
 ```
 
-You can then use iPython notebook server as usual, but your notebooks are
+6) Add the URL for your iPython server to IPYTHON_NOTEBOOK_SERVER variable in Django settings.
+
+7) Start your Django app. You can visit the admin interface to see notebooks
+from the admin. Or you can serve up the notebooks using javascript. See below.
+
+8) Enable javascript view of the notebooks. Create a HTML page that includes
+djnbmgr JS files. E.g. assuming in your Django setting, static files are in
+/static/djnbmgr and your djnbmgr URLs are mapped to /djnbmgr
+
+```
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <!-- CSS -->
+    <link href="/static/djnbmgr/css/djnbmgr.css" rel="stylesheet" type="text/css" media="screen" />
+  </head>
+  <body>
+    <div id="main">
+    </div>
+    <!-- djnbmgr JS -->
+    <script src="/static/djnbmgr/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="/static/djnbmgr/js/handlebars-1.0.0.beta.6.js" type="text/javascript"></script>
+    <script src="/static/djnbmgr/js/handlebars-templates.js" type="text/javascript"></script>
+    <script src="/static/djnbmgr/js/djnbmgr.js" type="text/javascript"></script>
+    <script>
+      jQuery(document).ready(function() {
+        window.DjangoNotebookManager(jQuery('#main'),'/djnbmgr/api/','url to your ipython server');
+      })
+    </script>
+  </body>
+</html>
+```
+
+You can also use iPython notebook server as usual, but your notebooks are
 stored in the database.
-
-There is also a Django admin view that comes with the package. To use, put
-"djnbmgr" in your INSTALLED_APPS list. The Django admin view lets you sort by
-date and look at earlier versions of a notebook.
-
-To use the Django admin view, you need to have both Django and the iPython
-notebook server running, and add IPYTHON_NOTEBOOK_SERVER to your settings.py
-file, and set it to the base URL of the notebook server. E.g.,
-"http://server.com:8888".
-
-This is all very preliminary; we are thinking about implementing a more
-involved UI that supports users, tagging, etc, using Django. iPython notebook
-has a very clean interface in terms of opening and saving notebooks, that made
-this possible.
 

@@ -1,14 +1,14 @@
 from django.contrib import admin
 from djnbmgr.models import *
 from django.conf import settings
-from djnbmgr.manager import NotebookManager
+from djnbmgr.manager import DjangoNotebookManager
 
 class NotebookAdmin(admin.ModelAdmin):
   def _name(self,obj):
     nbsrv = 'http://localhost:8888'
     if settings.IPYTHON_NOTEBOOK_SERVER:
       nbsrv = settings.IPYTHON_NOTEBOOK_SERVER
-    return '<a href="'+str(nbsrv)+'/'+str(obj.id)+'" target="_blank">'+NotebookManager._name(obj)+'</a>'
+    return '<a href="'+str(nbsrv)+'/'+str(obj.id)+'" target="_blank">'+DjangoNotebookManager._name(obj)+'</a>'
   _name.short_description = 'Name'
   _name.allow_tags = True
 

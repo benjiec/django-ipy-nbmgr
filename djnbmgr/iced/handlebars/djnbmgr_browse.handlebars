@@ -1,0 +1,35 @@
+<h3>Notebooks</h3>
+<ul>
+  {{#each notebooks.objects}}
+  <li class="notebook-link" data-notebook-id="{{this.id}}">
+    <span class="name">{{this.name}}</span><br/>
+    <span class="date">Updated: {{this.updated_on}}</span>
+    <span class="date">Created: {{this.created_on}}</span>
+  </li>
+  {{/each}}
+</ul>
+
+
+<h3>Archives</h3>
+<ul>
+  {{#each archives.objects}}
+  <li class="notebook-link" data-notebook-id="{{this.id}}">
+    <span class="name">{{this.name}}</span><br/>
+    <span class="date">Updated: {{this.updated_on}}</span>
+    <span class="date">Created: {{this.created_on}}</span>
+  </li>
+  {{/each}}
+</ul>
+
+
+<h3>Trash</h3>
+<ul>
+  {{#each trash.objects}}
+  <li class="notebook-link" data-notebook-id="{{this.id}}">
+    <span class="name">{{this.name}}</span><br/>
+    <span class="date">Updated: {{this.updated_on}}</span>
+    <span class="date">Created: {{this.created_on}}</span>
+  </li>
+  {{/each}}
+</ul>
+
