@@ -1,16 +1,14 @@
 from django.contrib import admin
 from djnbmgr.models import *
-from django.conf import settings
 from djnbmgr.manager import DjangoNotebookManager
 
 class NotebookAdmin(admin.ModelAdmin):
   def _name(self,obj):
-    nbsrv = 'http://localhost:8888'
-    if settings.IPYTHON_NOTEBOOK_SERVER:
-      nbsrv = settings.IPYTHON_NOTEBOOK_SERVER
-    return '<a href="'+str(nbsrv)+'/'+str(obj.id)+'" target="_blank">'+DjangoNotebookManager._name(obj)+'</a>'
-  _name.short_description = 'Name'
-  _name.allow_tags = True
+    if obj.deleted:
+      return obj.name+" (Deleted)"
+    elif obj.archive:
+      return obj.name+" (Archived)"
+    return obj.name
 
   def _revisions(self,obj):
     if obj.archive:
@@ -20,9 +18,11 @@ class NotebookAdmin(admin.ModelAdmin):
   _revisions.short_description = 'History'
   _revisions.allow_tags = True
 
-  list_display = ('_name','deleted','archive','created_on','updated_on','_revisions')
+  list_display = ('id', '_name','deleted','archive','created_on','updated_on','_revisions')
   list_filter = ('deleted','archive')
   ordering = ('archive','deleted','-updated_on',)
+  exclude = ('content',)
+  readonly_fields = ('for_notebook','id')
 
 admin.site.register(Notebook,NotebookAdmin)
 

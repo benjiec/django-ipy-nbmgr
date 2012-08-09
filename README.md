@@ -70,12 +70,10 @@ from djnbmgr.manager import DjangoNotebookManager
 PYTHONPATH=. ipython notebook --nbmgr loader --ip 0.0.0.0 --pylab inline --NotebookApp.notebook_manager_class=loader.DjangoNotebookManager
 ```
 
-6) Add the URL for your iPython server to IPYTHON_NOTEBOOK_SERVER variable in Django settings.
+6) Start your Django app. You can visit the admin interface to see notebooks
+from the admin.
 
-7) Start your Django app. You can visit the admin interface to see notebooks
-from the admin. Or you can serve up the notebooks using javascript. See below.
-
-8) Enable javascript view of the notebooks. Create a HTML page that includes
+7) Enable javascript view of the notebooks. Create a HTML page that includes
 djnbmgr JS files. E.g. assuming in your Django setting, static files are in
 /static/djnbmgr and your djnbmgr URLs are mapped to /djnbmgr
 

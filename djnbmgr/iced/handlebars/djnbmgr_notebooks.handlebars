@@ -2,14 +2,14 @@
   <tbody>
   {{#each notebooks.objects}}
     <tr data-notebook-id="{{this.id}}">
-      <td class="djnbmgr-notebook-link">{{this.name}}</td>
+      <td class="djnbmgr-notebook-name djnbmgr-notebook-link">{{this.name}}</td>
       <td class="djnbmgr-notebook-date">{{this.updated_on}}</td>
       <td class="djnbmgr-notebook-actions">
-        <span class="djnbmgr-notebook-vc djnbmgr-notebook-action"
+        <span class="djnbmgr-notebook-vc djnbmgr-notebook-action djnbmgr-button"
          >Versions</span> 
-        <span class="djnbmgr-notebook-copy djnbmgr-notebook-action"
+        <span class="djnbmgr-notebook-copy djnbmgr-notebook-action djnbmgr-button"
          >Copy</span> 
-        <span class="djnbmgr-notebook-delete djnbmgr-notebook-action"
+        <span class="djnbmgr-notebook-delete djnbmgr-notebook-action djnbmgr-button"
          >Delete</span> 
       </td>
     </tr>

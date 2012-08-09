@@ -5,7 +5,6 @@ import uuid
 from djnbmgr.models import Notebook
 from django.conf import settings
 
-from IPython.utils.traitlets import Unicode
 from IPython.nbformat import current
 from IPython.frontend.html.notebook.basenbmanager import BaseNotebookManager
 

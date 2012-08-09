@@ -19,6 +19,7 @@
 input.djnbmgr-search {
   border:1px solid #e5e5e5;
   width:300px;
+  height:25px;
   box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
   -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
   -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
@@ -42,24 +43,51 @@ ul.djnbmgr-notebook-list {
 ul.djnbmgr-notebook-list li { margin:10px; }
 
 span.djnbmgr-notebook-name { display:block; }
-span.djnbmgr-notebook-info { color:#aaa; }
+.djnbmgr-notebook-info { color:#aaa; }
 .djnbmgr-notebook-link { cursor:pointer; text-decoration:underline; }
-.djnbmgr-notebook-action { cursor:pointer; text-decoration:underline; }
 
-span.djnbmgr-notebook-new {
-  display:block;
+.djnbmgr-button {
+  display:inline-block;
   border:1px solid #aaa;
   padding:4px 10px 4px 10px;
   -webkit-border-radius:4px;
   -moz-border-radius:4px;
   border-radius:4px;
-  background-color:#393;
-  color:white;
-  width:85px;
   font-size:0.8em;
   cursor:pointer;
   box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
   -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
   -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+  background-color:#393;
+  color:white;
 }
+
+.djnbmgr-notebook-history {
+  position:fixed;
+  left:15%;
+  top:50px;
+  width:500px;
+  height:400px;
+  overflow:auto;
+  z-index:100;
+  background-color:white;
+  border:1px solid #aaa;
+  box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+  -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+  -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+  padding:10px;
+  font-size:0.8em;
+  text-align:left;
+}
+.djnbmgr-notebook-history>table { font-size:inherit; }
+
+.djnbmgr-notebook-action { 
+  display:inline-block !important;
+  font-size:0.8em; 
+}
+.djnbmgr-notebook-delete {
+  background-color:#933;
+  color:white;
+}
+.djnbmgr-close { width:25px; }
 

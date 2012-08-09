@@ -40,13 +40,34 @@
   window.__iced_k = window.__iced_k_noop = function() {};
 
   window.DjangoNotebookManager = function(el, api_url, ipython_server_url) {
-    var $, container, find_nb_id, refresh;
+    var $, container, delete_notebook, find_nb_id, find_nb_name, refresh, search_keypress_timeout;
     $ = jQuery;
     if (api_url[api_url.length - 1] !== '/') api_url = api_url + '/';
     container = Handlebars.templates.djnbmgr_browse({});
     $(el).empty();
     $(el).append(container);
+    delete_notebook = function(nbid, cb) {
+      var params;
+      params = {
+        'deleted': true
+      };
+      return $.ajax({
+        type: 'PUT',
+        url: api_url + 'notebook/' + nbid + '/',
+        contentType: 'application/json',
+        data: JSON.stringify(params),
+        dataType: "json",
+        success: function() {
+          return cb(true);
+        },
+        error: function(xhr, textStatus, error) {
+          return cb(false);
+        }
+      });
+    };
     refresh = function() {
+      var query;
+      query = $('.djnbmgr-search').val();
       (function() {
         var list, r, ___iced_passed_deferral, __iced_deferrals, __iced_k,
           _this = this;
@@ -57,14 +78,25 @@
             parent: ___iced_passed_deferral,
             filename: "iced/djnbmgr.iced"
           });
-          $.getJSON(api_url + 'notebook/?order_by=-updated_on', __iced_deferrals.defer({
-            assign_fn: (function() {
-              return function() {
-                return r = arguments[0];
-              };
-            })(),
-            lineno: 14
-          }));
+          if (query !== "") {
+            $.getJSON(api_url + 'notebook/?order_by=-updated_on&name__icontains=' + encodeURIComponent(query), __iced_deferrals.defer({
+              assign_fn: (function() {
+                return function() {
+                  return r = arguments[0];
+                };
+              })(),
+              lineno: 33
+            }));
+          } else {
+            $.getJSON(api_url + 'notebook/?order_by=-updated_on', __iced_deferrals.defer({
+              assign_fn: (function() {
+                return function() {
+                  return r = arguments[0];
+                };
+              })(),
+              lineno: 35
+            }));
+          }
           __iced_deferrals._fulfill();
         })(function() {
           list = Handlebars.templates.djnbmgr_notebooks({
@@ -89,7 +121,7 @@
                 return r = arguments[0];
               };
             })(),
-            lineno: 20
+            lineno: 41
           }));
           __iced_deferrals._fulfill();
         })(function() {
@@ -115,7 +147,7 @@
                 return r = arguments[0];
               };
             })(),
-            lineno: 26
+            lineno: 47
           }));
           __iced_deferrals._fulfill();
         })(function() {
@@ -131,38 +163,94 @@
       nbid = $(el).parents('[data-notebook-id]').first().data('notebook-id');
       return nbid;
     };
+    find_nb_name = function(el) {
+      var name;
+      name = $(el).parents('[data-notebook-id]').first().find('.djnbmgr-notebook-name').text();
+      return name;
+    };
     $('.djnbmgr-notebook-link').live('click', function() {
       var nbid;
       nbid = find_nb_id(this);
       return window.open(ipython_server_url + '/' + nbid);
     });
     $('.djnbmgr-notebook-delete').live('click', function() {
-      var nbid;
+      var nbid, r, ___iced_passed_deferral, __iced_deferrals, __iced_k,
+        _this = this;
+      __iced_k = __iced_k_noop;
+      ___iced_passed_deferral = iced.findDeferral(arguments);
       nbid = find_nb_id(this);
-      alert("delete " + nbid);
-      return refresh();
+      if (confirm('Delete notebook?')) {
+        (function(__iced_k) {
+          __iced_deferrals = new iced.Deferrals(__iced_k, {
+            parent: ___iced_passed_deferral,
+            filename: "iced/djnbmgr.iced"
+          });
+          delete_notebook(nbid, __iced_deferrals.defer({
+            assign_fn: (function() {
+              return function() {
+                return r = arguments[0];
+              };
+            })(),
+            lineno: 71
+          }));
+          __iced_deferrals._fulfill();
+        })(function() {
+          return __iced_k(r ? refresh() : alert('Cannot delete notebook'));
+        });
+      } else {
+        return __iced_k();
+      }
     });
     $('.djnbmgr-notebook-copy').live('click', function() {
       var nbid;
       nbid = find_nb_id(this);
-      alert("copy " + nbid);
-      return refresh();
+      if (confirm('Make a copy of this notebook?')) {
+        window.open(ipython_server_url + '/' + nbid + '/copy');
+        return setTimeout(refresh, 1000);
+      }
     });
     $('.djnbmgr-notebook-vc').live('click', function() {
-      var nbid;
+      var list, name, nbid, r, ___iced_passed_deferral, __iced_deferrals, __iced_k,
+        _this = this;
+      __iced_k = __iced_k_noop;
+      ___iced_passed_deferral = iced.findDeferral(arguments);
+      el = this;
       nbid = find_nb_id(this);
-      return alert("vc " + nbid);
+      name = find_nb_name(this);
+      (function(__iced_k) {
+        __iced_deferrals = new iced.Deferrals(__iced_k, {
+          parent: ___iced_passed_deferral,
+          filename: "iced/djnbmgr.iced"
+        });
+        $.getJSON(api_url + 'archive/?limit=50&order_by=-updated_on&for_notebook_id=' + nbid, __iced_deferrals.defer({
+          assign_fn: (function() {
+            return function() {
+              return r = arguments[0];
+            };
+          })(),
+          lineno: 90
+        }));
+        __iced_deferrals._fulfill();
+      })(function() {
+        list = Handlebars.templates.djnbmgr_history({
+          notebooks: r,
+          name: name
+        });
+        return $(el).parents('td').first().append(list);
+      });
     });
-    $('.djnbmgr-search').live('keypress', function(e) {
-      var query;
-      if (e.which === 13) {
-        query = $(this).val();
-        return alert("search " + query);
-      }
+    $('.djnbmgr-close').live('click', function() {
+      el = this;
+      return $(el).parent('div').remove();
+    });
+    search_keypress_timeout = 0;
+    $('.djnbmgr-search').live('keyup', function(e) {
+      clearTimeout(search_keypress_timeout);
+      return search_keypress_timeout = setTimeout(refresh, 500);
     });
     $('.djnbmgr-notebook-new').live('click', function() {
       window.open(ipython_server_url + '/new');
-      return refresh();
+      return setTimeout(refresh, 1000);
     });
     return refresh();
   };
