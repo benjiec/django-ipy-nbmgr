@@ -102,6 +102,26 @@ djnbmgr JS files. E.g. assuming in your Django setting, static files are in
 </html>
 ```
 
+There is an example HTML file in djnbmgr/static/djnbmgr/example_ui.html
+
+8) Load that HTML file in the browser, and off you go. For example, the
+example_ui.html can be loaded with
+
+```
+http://your-server/static/djnbmgr/example_ui.html
+```
+
+Of course the example_ui.html file supplied does not have the correct URL to
+your ipython server and the base URL for your djnbmgr API.
+
 You can also use iPython notebook server as usual, but your notebooks are
 stored in the database.
+
+
+Known Issues
+============
+
+Currently there is no mechanism to shutdown iPython kernels via this UI yet. We
+will build kernel management mechanisms shortly.
+
 
