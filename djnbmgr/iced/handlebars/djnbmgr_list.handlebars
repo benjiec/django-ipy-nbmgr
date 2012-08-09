@@ -1,0 +1,9 @@
+<ul class="djnbmgr-notebook-list">
+  {{#each notebooks.objects}}
+  <li>
+    <span class="djnbmgr-notebook-name djnbmgr-notebook-link" data-notebook-id="{{this.id}}">{{this.name}}</span>
+    <span class="djnbmgr-notebook-info">{{this.updated_on}}</span>
+  </li>
+  {{/each}}
+</ul>
+

@@ -39,63 +39,132 @@
   };
   window.__iced_k = window.__iced_k_noop = function() {};
 
-  window.DjangoNotebookManager = function(el, api_url_base, ipython_server_url) {
-    var $, archives, container, notebooks, trash, ___iced_passed_deferral, __iced_deferrals, __iced_k,
-      _this = this;
-    __iced_k = __iced_k_noop;
-    ___iced_passed_deferral = iced.findDeferral(arguments);
+  window.DjangoNotebookManager = function(el, api_url, ipython_server_url) {
+    var $, container, find_nb_id, refresh;
     $ = jQuery;
-    if (api_url_base[api_url_base.length - 1] !== '/') {
-      api_url_base = api_url_base + '/';
-    }
+    if (api_url[api_url.length - 1] !== '/') api_url = api_url + '/';
+    container = Handlebars.templates.djnbmgr_browse({});
+    $(el).empty();
+    $(el).append(container);
+    refresh = function() {
+      (function() {
+        var list, r, ___iced_passed_deferral, __iced_deferrals, __iced_k,
+          _this = this;
+        __iced_k = __iced_k_noop;
+        ___iced_passed_deferral = iced.findDeferral(arguments);
+        (function(__iced_k) {
+          __iced_deferrals = new iced.Deferrals(__iced_k, {
+            parent: ___iced_passed_deferral,
+            filename: "iced/djnbmgr.iced"
+          });
+          $.getJSON(api_url + 'notebook/?order_by=-updated_on', __iced_deferrals.defer({
+            assign_fn: (function() {
+              return function() {
+                return r = arguments[0];
+              };
+            })(),
+            lineno: 14
+          }));
+          __iced_deferrals._fulfill();
+        })(function() {
+          list = Handlebars.templates.djnbmgr_notebooks({
+            notebooks: r
+          });
+          return $('.djnbmgr-notebooks', el).empty().append(list);
+        });
+      })();
+      (function() {
+        var list, r, ___iced_passed_deferral, __iced_deferrals, __iced_k,
+          _this = this;
+        __iced_k = __iced_k_noop;
+        ___iced_passed_deferral = iced.findDeferral(arguments);
+        (function(__iced_k) {
+          __iced_deferrals = new iced.Deferrals(__iced_k, {
+            parent: ___iced_passed_deferral,
+            filename: "iced/djnbmgr.iced"
+          });
+          $.getJSON(api_url + 'archive/?limit=10&order_by=-updated_on', __iced_deferrals.defer({
+            assign_fn: (function() {
+              return function() {
+                return r = arguments[0];
+              };
+            })(),
+            lineno: 20
+          }));
+          __iced_deferrals._fulfill();
+        })(function() {
+          list = Handlebars.templates.djnbmgr_list({
+            notebooks: r
+          });
+          return $('.djnbmgr-archived', el).empty().append(list);
+        });
+      })();
+      return (function() {
+        var list, r, ___iced_passed_deferral, __iced_deferrals, __iced_k,
+          _this = this;
+        __iced_k = __iced_k_noop;
+        ___iced_passed_deferral = iced.findDeferral(arguments);
+        (function(__iced_k) {
+          __iced_deferrals = new iced.Deferrals(__iced_k, {
+            parent: ___iced_passed_deferral,
+            filename: "iced/djnbmgr.iced"
+          });
+          $.getJSON(api_url + 'trashed/?limit=10&order_by=-updated_on', __iced_deferrals.defer({
+            assign_fn: (function() {
+              return function() {
+                return r = arguments[0];
+              };
+            })(),
+            lineno: 26
+          }));
+          __iced_deferrals._fulfill();
+        })(function() {
+          list = Handlebars.templates.djnbmgr_list({
+            notebooks: r
+          });
+          return $('.djnbmgr-trashed', el).empty().append(list);
+        });
+      })();
+    };
+    find_nb_id = function(el) {
+      var nbid;
+      nbid = $(el).parents('[data-notebook-id]').first().data('notebook-id');
+      return nbid;
+    };
     $('.djnbmgr-notebook-link').live('click', function() {
       var nbid;
-      nbid = $(this).data('notebook-id');
+      nbid = find_nb_id(this);
       return window.open(ipython_server_url + '/' + nbid);
     });
+    $('.djnbmgr-notebook-delete').live('click', function() {
+      var nbid;
+      nbid = find_nb_id(this);
+      alert("delete " + nbid);
+      return refresh();
+    });
+    $('.djnbmgr-notebook-copy').live('click', function() {
+      var nbid;
+      nbid = find_nb_id(this);
+      alert("copy " + nbid);
+      return refresh();
+    });
+    $('.djnbmgr-notebook-vc').live('click', function() {
+      var nbid;
+      nbid = find_nb_id(this);
+      return alert("vc " + nbid);
+    });
+    $('.djnbmgr-search').live('keypress', function(e) {
+      var query;
+      if (e.which === 13) {
+        query = $(this).val();
+        return alert("search " + query);
+      }
+    });
     $('.djnbmgr-notebook-new').live('click', function() {
-      return window.open(ipython_server_url + '/new');
+      window.open(ipython_server_url + '/new');
+      return refresh();
     });
-    (function(__iced_k) {
-      __iced_deferrals = new iced.Deferrals(__iced_k, {
-        parent: ___iced_passed_deferral,
-        filename: "iced/djnbmgr.iced",
-        funcname: "DjangoNotebookManager"
-      });
-      $.getJSON(api_url_base + 'notebook/?order_by=-updated_on', __iced_deferrals.defer({
-        assign_fn: (function() {
-          return function() {
-            return notebooks = arguments[0];
-          };
-        })(),
-        lineno: 16
-      }));
-      $.getJSON(api_url_base + 'archive/?limit=10&order_by=-updated_on', __iced_deferrals.defer({
-        assign_fn: (function() {
-          return function() {
-            return archives = arguments[0];
-          };
-        })(),
-        lineno: 17
-      }));
-      $.getJSON(api_url_base + 'trashed/?limit=10&order_by=-updated_on', __iced_deferrals.defer({
-        assign_fn: (function() {
-          return function() {
-            return trash = arguments[0];
-          };
-        })(),
-        lineno: 19
-      }));
-      __iced_deferrals._fulfill();
-    })(function() {
-      container = Handlebars.templates.djnbmgr_browse({
-        notebooks: notebooks,
-        archives: archives,
-        trash: trash
-      });
-      $(el).empty();
-      return $(el).append(container);
-    });
+    return refresh();
   };
 
 }).call(this);

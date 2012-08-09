@@ -1,29 +1,62 @@
-window.DjangoNotebookManager = (el, api_url_base, ipython_server_url) ->
-
+window.DjangoNotebookManager = (el, api_url, ipython_server_url) ->
   $ = jQuery
 
-  if api_url_base[api_url_base.length-1] != '/'
-    api_url_base = api_url_base+'/'
+  if api_url[api_url.length-1] != '/'
+    api_url = api_url+'/'
 
-  $('.djnbmgr-notebook-link').live 'click', ->
-    nbid = $(this).data('notebook-id')
-    window.open(ipython_server_url+'/'+nbid)
-
-  $('.djnbmgr-notebook-new').live 'click', ->
-    window.open(ipython_server_url+'/new')
-
-  await
-    $.getJSON api_url_base+'notebook/?order_by=-updated_on', defer notebooks
-    $.getJSON api_url_base+'archive/?limit=10&order_by=-updated_on', defer archives
-    $.getJSON api_url_base+'trashed/?limit=10&order_by=-updated_on', defer trash
-
-  container = Handlebars.templates.djnbmgr_browse({
-    notebooks: notebooks,
-    archives: archives,
-    trash: trash
-  })
-
+  container = Handlebars.templates.djnbmgr_browse({})
   $(el).empty()
   $(el).append(container)
 
+  refresh = ->
+    do ->
+      await
+        $.getJSON api_url+'notebook/?order_by=-updated_on', defer r
+      list = Handlebars.templates.djnbmgr_notebooks({ notebooks: r })
+      $('.djnbmgr-notebooks',el).empty().append(list)
+
+    do ->
+      await
+        $.getJSON api_url+'archive/?limit=10&order_by=-updated_on', defer r
+      list = Handlebars.templates.djnbmgr_list({ notebooks: r })
+      $('.djnbmgr-archived',el).empty().append(list)
+
+    do ->
+      await
+        $.getJSON api_url+'trashed/?limit=10&order_by=-updated_on', defer r
+      list = Handlebars.templates.djnbmgr_list({ notebooks: r })
+      $('.djnbmgr-trashed',el).empty().append(list)
+
+  find_nb_id = (el) ->
+    nbid = $(el).parents('[data-notebook-id]').first().data('notebook-id')
+    return nbid
+
+  $('.djnbmgr-notebook-link').live 'click', ->
+    nbid = find_nb_id(this)
+    window.open(ipython_server_url+'/'+nbid)
+
+  $('.djnbmgr-notebook-delete').live 'click', ->
+    nbid = find_nb_id(this)
+    alert "delete "+nbid
+    refresh()
+
+  $('.djnbmgr-notebook-copy').live 'click', ->
+    nbid = find_nb_id(this)
+    alert "copy "+nbid
+    refresh()
+
+  $('.djnbmgr-notebook-vc').live 'click', ->
+    nbid = find_nb_id(this)
+    alert "vc "+nbid
+  
+  $('.djnbmgr-search').live 'keypress', (e) ->
+    if e.which == 13
+      query = $(this).val()
+      alert "search "+query
+
+  $('.djnbmgr-notebook-new').live 'click', ->
+    window.open(ipython_server_url+'/new')
+    refresh()
+  
+  refresh()
 

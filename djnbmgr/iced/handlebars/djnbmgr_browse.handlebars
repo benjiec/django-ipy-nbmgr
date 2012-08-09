@@ -1,41 +1,26 @@
 <div class="djnbmgr">
+
 <div class="djnbmgr-left djnbmgr-main">
-  <h3>Notebooks</h3>
-  <p>
-    <span class="djnbmgr-notebook-new">New Notebook</span>
-  </p>
-  <table class="djnbmgr-notebook-list">
-    <tbody>
-    {{#each notebooks.objects}}
-      <tr>
-        <td class="djnbmgr-notebook-name djnbmgr-notebook-link" data-notebook-id="{{this.id}}">{{this.name}}</td>
-        <td class="djnbmgr-notebook-date">{{this.updated_on}}</td>
-      </tr>
-    {{/each}}
-    </tbody>
-  </table>
+  <div>
+    <h3>Notebooks</h3>
+    <p>
+      <span class="djnbmgr-notebook-new">New Notebook</span>
+    </p>
+    <p>
+      <input type="text" class="djnbmgr-search" value=""
+       placeholder="Search notebooks" />
+    </p>
+    <div class="djnbmgr-notebooks"></div>
+  </div>
 </div>
 
 <div class="djnbmgr-left djnbmgr-menu">
-  <h3>Recently Archived</h3>
-  <ul class="djnbmgr-notebook-list">
-    {{#each archives.objects}}
-    <li>
-      <span class="djnbmgr-notebook-name djnbmgr-notebook-link" data-notebook-id="{{this.id}}">{{this.name}}</span>
-      <span class="djnbmgr-notebook-info">{{this.updated_on}}</span>
-    </li>
-    {{/each}}
-  </ul>
-
-  <h3>Recently Trashed</h3>
-  <ul class="djnbmgr-notebook-list">
-    {{#each trash.objects}}
-    <li>
-      <span class="djnbmgr-notebook-name djnbmgr-notebook-link" data-notebook-id="{{this.id}}">{{this.name}}</span>
-      <span class="djnbmgr-notebook-info">{{this.updated_on}}</span>
-    </li>
-    {{/each}}
-  </ul>
+  <div>
+    <h3>Recently Archived</h3>
+    <div class="djnbmgr-archived"></div>
+    <h3>Recently Trashed</h3>
+    <div class="djnbmgr-trashed"></div>
+  </div>
 </div>
 
 <div class="djnbmgr-clear"></div>

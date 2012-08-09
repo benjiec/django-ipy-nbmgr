@@ -1,0 +1,19 @@
+<table class="djnbmgr-notebook-list">
+  <tbody>
+  {{#each notebooks.objects}}
+    <tr data-notebook-id="{{this.id}}">
+      <td class="djnbmgr-notebook-link">{{this.name}}</td>
+      <td class="djnbmgr-notebook-date">{{this.updated_on}}</td>
+      <td class="djnbmgr-notebook-actions">
+        <span class="djnbmgr-notebook-vc djnbmgr-notebook-action"
+         >Versions</span> 
+        <span class="djnbmgr-notebook-copy djnbmgr-notebook-action"
+         >Copy</span> 
+        <span class="djnbmgr-notebook-delete djnbmgr-notebook-action"
+         >Delete</span> 
+      </td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
+
