@@ -11,7 +11,7 @@ To use, following these steps.
 You can install this like
 
 ```
-pip install -e git://github.com/benjiec/ipython.git@azurenb#egg=IPython
+pip install -e git://github.com/benjiec/ipython.git@rokernel#egg=IPython
 ```
 
 or just checkout 
