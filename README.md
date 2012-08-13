@@ -11,7 +11,7 @@ To use, following these steps.
 You can install this like
 
 ```
-pip install -e git://github.com/benjiec/ipython.git@rokernel#egg=IPython
+pip install -e git://github.com/benjiec/ipython.git@ginkgo#egg=IPython
 ```
 
 or just checkout 
@@ -19,7 +19,7 @@ or just checkout
 ```
 git clone git://github.com/benjiec/ipython.git
 cd ipython
-git checkout azurenb
+git checkout ginkgo
 python setup.py install
 ```
 

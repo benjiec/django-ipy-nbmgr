@@ -6,9 +6,9 @@ from djnbmgr.models import Notebook
 from django.conf import settings
 
 from IPython.nbformat import current
-from IPython.frontend.html.notebook.basenbmanager import BaseNotebookManager
+from IPython.frontend.html.notebook.nbmanager import NotebookManager
 
-class DjangoNotebookManager(BaseNotebookManager):
+class DjangoNotebookManager(NotebookManager):
   notebook_dir = os.getcwdu()
 
   def log_info(self):
