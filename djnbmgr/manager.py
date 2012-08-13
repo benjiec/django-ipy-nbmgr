@@ -36,10 +36,10 @@ class DjangoNotebookManager(NotebookManager):
     n = Notebook.objects.filter(id=notebook_id)
     return len(n) == 1
 
-  def notebook_runnable(self, notebook_id):
+  def notebook_readonly(self, notebook_id):
     """Can notebook run in a kernel?"""
     n = Notebook.objects.filter(id=notebook_id)
-    return len(n) == 1 and n.archive == False and n.deleted == False
+    return len(n) > 0 and (n[0].archive == True or n[0].deleted == True)
 
   def get_notebook(self, notebook_id, format=u'json'):
     """Get the representation of a notebook in format by notebook_id."""

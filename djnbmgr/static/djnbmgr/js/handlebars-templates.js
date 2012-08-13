@@ -13,11 +13,11 @@ templates['djnbmgr_list'] = template(function (Handlebars,depth0,helpers,partial
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n  <li>\n    <span class=\"djnbmgr-notebook-name djnbmgr-notebook-link\" data-notebook-id=\"";
+  buffer += "\n  <li data-notebook-id=\"";
   stack1 = depth0.id;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.id", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "\">";
+  buffer += escapeExpression(stack1) + "\">\n    <span class=\"djnbmgr-notebook-name djnbmgr-notebook-link\">";
   stack1 = depth0.name;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.name", { hash: {} }); }
