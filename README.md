@@ -1,5 +1,12 @@
-django-ipy-nbmgr
-================
+DEPRECATED
+==========
+
+This effort is now deprecated. See benjie/ipython for other efforts on sorting,
+searching, tagging in the notebook interface.
+
+Old documentation appears below.
+
+-------------------------------------
 
 Alternative Django based iPython notebook manager: saves notebooks to database,
 and archive old revisions.
@@ -116,12 +123,4 @@ your ipython server and the base URL for your djnbmgr API.
 
 You can also use iPython notebook server as usual, but your notebooks are
 stored in the database.
-
-
-Known Issues
-============
-
-Currently there is no mechanism to shutdown iPython kernels via this UI yet. We
-will build kernel management mechanisms shortly.
-
 
